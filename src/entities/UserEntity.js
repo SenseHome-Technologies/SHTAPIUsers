@@ -7,5 +7,7 @@ exports.UserEntity = class UserEntity {
         this.phonenumber = user.phonenumber;
         this.profilephoto = user.profilephoto;
         this.phonetoken = user.phonetoken;
+        this.verificationcode = user.verificationcode;
+        this.codeexpiry = user.codeexpiry;
     }
 }

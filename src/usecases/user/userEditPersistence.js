@@ -7,7 +7,7 @@ exports.userEditPersistence = async (token, user) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         // Find the user based on the username in the token
-        const userRecord = await User.findOne({id: decoded.id}).lean();
+        const userRecord = await User.findByPk(decoded.id);
 
         if (!userRecord) {
             return ({
@@ -17,9 +17,14 @@ exports.userEditPersistence = async (token, user) => {
         }
 
         // Update user details in the database
-        await User.updateOne(
-            {id: userRecord.id},
-            {username: user.username, email: user.email, phonenumber: user.phonenumber, profilephoto: user.profilephoto, phonetoken: user.phonetoken}
+        await userRecord.update(
+            {
+                username: user.username, 
+                email: user.email, 
+                phonenumber: user.phonenumber, 
+                profilephoto: user.profilephoto, 
+                phonetoken: user.phonetoken
+            }
         );
 
          // Respond with success message

@@ -25,6 +25,8 @@ const User = db.define('user', {
     phonenumber: Sequelize.STRING,
     profilephoto: Sequelize.STRING,
     phonetoken: Sequelize.STRING,
+    verificationcode: Sequelize.STRING,
+    codeexpiry: Sequelize.DATE
 }, {
     tableName: 'users',
     timestamps: false

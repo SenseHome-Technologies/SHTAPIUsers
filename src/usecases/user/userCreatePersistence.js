@@ -20,13 +20,11 @@ exports.userCreatePersistence = async (user) => {
         await User.create({
             username: user.username,
             email: user.email,
-            password: passwordHash,
-            phonenumber: user.phonenumber,
-            profilephoto: user.profilephoto
+            password: passwordHash
         });
 
         return ({
-            status: 200,
+            status: 201,
             message: "User registered successfully"
         })
     } catch (err) {

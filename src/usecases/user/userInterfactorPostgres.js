@@ -8,6 +8,12 @@ exports.login = async ({userLoginPersistence}, {email, password}) => {
         const user = new UserEntity({email, password});
 
         // Validate the user
+        if (!email || !password) {
+            return {
+                status: 400,
+                message: 'Email and password are required'
+            };
+        }
 
         // Attempt to persist user login and retrieve result
         const loginResult = await userLoginPersistence(user);
@@ -17,51 +23,128 @@ exports.login = async ({userLoginPersistence}, {email, password}) => {
     } catch (err) {
         // Log any errors that occur during the login process
         console.error(err);
-
         // Rethrow the error to be handled by the caller
         throw err;
     }
 }
 
-exports.register = async ({userCreatePersistence}, {username, email, password, phonenumber}) => {
+exports.register = async ({userCreatePersistence}, {username, email, password}) => {
     try {
         // Create a new UserEntity with the provided details
-        const user = new UserEntity({username, email, password, phonenumber});
+        const user = new UserEntity({username, email, password});
 
         // Validate the user
+        if (!username || !email || !password) {
+            return {
+                status: 400,
+                message: 'Username, email, and password are required'
+            };
+        }
 
         // Attempt to persist the user registration
         const registeruser = await userCreatePersistence(user);
+
         // Return the result of the registration
         return registeruser;
     } catch (err) {
         // Log any errors that occur during the registration process
         console.error(err);
-
         // Rethrow the error to be handled by the caller
         throw err;
     }
 }
 
-exports.changePassword = async ({userForgetPasswordPersistence}, {token, oldPassword, newPassword}) => {
+exports.forgotPassword = async ({userForgetPasswordPersistence}, {email}) => {
     try {
-        // TODO: Implement password change functionality
-        return ({
-            status: 401,
-            message: 'Not implemented'
-        });
+        // Create a new UserEntity with the provided details
+        const user = new UserEntity({email});
+
+        // Validate the user        
+        if (!email) {
+            return {
+                status: 400,
+                message: 'Email is required'
+            };
+        }
+
+        // Attempt to persist the user forgot password
+        const result = await userForgetPasswordPersistence.forgotPassword(user);
+
+        // Return the result
+        return result;
     } catch (err) {
         // Rethrow any errors that occur during the process
         throw err;
     }
 }
 
-exports.editUser = async ({userEditPersistence}, {token, username, email, phonenumber, profilephoto, phonetoken}) => {
+exports.verifyCode = async ({userForgetPasswordPersistence}, {email, verificationcode}) => {
+    try {
+        // Create a new UserEntity with the provided details
+        const user = new UserEntity({email, verificationcode});
+
+        // Validate the user        
+        if (!email || !verificationcode) {
+            return {
+                status: 400,
+                message: 'Email and verification code are required'
+            };
+        }
+
+        // Attempt to persist the user forgot password
+        const result = await userForgetPasswordPersistence.verifyCode(user);
+
+        // Return the result
+        return result;
+    } catch (err) {
+        // Rethrow any errors that occur during the process
+        throw err;
+    }
+}
+
+exports.resetPassword = async ({userForgetPasswordPersistence}, {token, password}) => {
+    try {
+        // Create a new UserEntity with the provided details
+        const user = new UserEntity({password});
+
+        // Validate the user        
+        if (!password) {
+            return {
+                status: 400,
+                message: 'Password is required'
+            };
+        }
+
+        if (password.length < 8) {
+            return {
+                status: 400,
+                message: 'Password must be at least 8 characters long'
+            };
+        }
+
+        // Attempt to persist the user forgot password
+        const result = await userForgetPasswordPersistence.resetPassword(token, user);
+
+        // Return the result
+        return result;
+    } catch (err) {
+        // Rethrow any errors that occur during the process
+        throw err;
+    }
+}
+
+exports.edit = async ({userEditPersistence}, {token, username, email, phonenumber, profilephoto, phonetoken}) => {
     try {
         // Create a new UserEntity with provided user details
         const user = new UserEntity({username, email, phonenumber, profilephoto, phonetoken});
 
-        // Validate all required fields of the user 
+        // Validate all required fields of the user
+        if (!username || !email) {
+            return {
+                status: 400,
+                message: 'All fields are required'
+            };
+        }
 
         // Attempt to edit the user using userEditPersistence
         const editedUser = await userEditPersistence(token, user);
@@ -74,7 +157,7 @@ exports.editUser = async ({userEditPersistence}, {token, username, email, phonen
     }
 }
 
-exports.deleteUser = async ({userDeletePersistence}, {token}) => {
+exports.delete = async ({userDeletePersistence}, {token}) => {
     try {
         // Attempt to delete the user using userDeletePersistence
         const deletedUser = await userDeletePersistence(token);
