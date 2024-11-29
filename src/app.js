@@ -6,6 +6,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 // For interacting with the database
 const sequelize = require('./framework/db/postgresql/config');
+// A UI for interactively exploring an API
+const swaggerUI = require('swagger-ui-express');
+// The swagger definition for our API
+const swaggerDocument = require('../public/swagger.json');
 
 // Load environment variables
 require('dotenv').config();
@@ -25,6 +29,11 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api', require('./controllers/routes/userRoute'));
+
+// Swagger UI
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+// Swagger API documentation
+app.use('/api-docjs', express.static('./public/apidocjs'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
