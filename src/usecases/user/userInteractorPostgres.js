@@ -16,10 +16,10 @@ exports.login = async ({userLoginPersistence}, {email, password}) => {
         }
 
         // Attempt to persist user login and retrieve result
-        const loginResult = await userLoginPersistence(user);
+        const result = await userLoginPersistence(user);
 
         // Return the login result
-        return loginResult;
+        return result;
     } catch (err) {
         // Log any errors that occur during the login process
         console.error(err);
@@ -42,10 +42,10 @@ exports.register = async ({userCreatePersistence}, {username, email, password}) 
         }
 
         // Attempt to persist the user registration
-        const registeruser = await userCreatePersistence(user);
+        const result = await userCreatePersistence(user);
 
         // Return the result of the registration
-        return registeruser;
+        return result;
     } catch (err) {
         // Log any errors that occur during the registration process
         console.error(err);
@@ -147,10 +147,10 @@ exports.edit = async ({userEditPersistence}, {token, username, email, phonenumbe
         }
 
         // Attempt to edit the user using userEditPersistence
-        const editedUser = await userEditPersistence(token, user);
+        const result = await userEditPersistence(token, user);
 
         // Return the result of the user edit
-        return editedUser;
+        return result;
     } catch (err) {
         // Rethrow any errors that occur during the user edit process
         throw err;
@@ -160,10 +160,10 @@ exports.edit = async ({userEditPersistence}, {token, username, email, phonenumbe
 exports.delete = async ({userDeletePersistence}, {token}) => {
     try {
         // Attempt to delete the user using userDeletePersistence
-        const deletedUser = await userDeletePersistence(token);
+        const result = await userDeletePersistence(token);
 
         // Return the result of the user deletion
-        return deletedUser;
+        return result;
     } catch (err) {
         // Rethrow any errors that occur during the user deletion process
         throw err;

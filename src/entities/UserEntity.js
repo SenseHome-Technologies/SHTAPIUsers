@@ -4,7 +4,6 @@ exports.UserEntity = class UserEntity {
         this.username = user.username;
         this.email = user.email;
         this.password = user.password;
-        this.phonenumber = user.phonenumber;
         this.profilephoto = user.profilephoto;
         this.phonetoken = user.phonetoken;
         this.verificationcode = user.verificationcode;

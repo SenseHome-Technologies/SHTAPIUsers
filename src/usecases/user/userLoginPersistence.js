@@ -27,7 +27,7 @@ exports.userLoginPersistence = async (user) => {
         }
 
         // Generate a JWT token for the user
-        const token = jwt.sign({id: userRecord.id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const token = jwt.sign({id: userRecord.id, email: userRecord.email, role: "User"}, process.env.JWT_SECRET, {expiresIn: '1d'});
 
         // Return success response with token
         return {

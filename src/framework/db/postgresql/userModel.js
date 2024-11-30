@@ -22,7 +22,6 @@ const User = db.define('user', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    phonenumber: DataTypes.STRING,
     profilephoto: DataTypes.STRING,
     phonetoken: DataTypes.STRING,
     verificationcode: DataTypes.STRING,
