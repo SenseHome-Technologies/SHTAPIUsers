@@ -1,5 +1,5 @@
 'use strict';
-const userInterfactorPostgres = require('../../usecases/user/userInterfactorPostgres');
+const userInteractorPostgres = require('../../usecases/user/userInteractorPostgres');
 const { userLoginPersistence } = require('../../usecases/user/userLoginPersistence');
 const { userCreatePersistence } = require('../../usecases/user/userCreatePersistence');
 const userForgetPasswordPersistence = require('../../usecases/user/userForgetPasswordPersistence');
@@ -29,7 +29,7 @@ router.route('/user/login').post(
 
         try {
             // Use userInteractorPostgres to attempt login with the provided email and password
-            const user = await userInterfactorPostgres.login({userLoginPersistence}, {email, password});
+            const user = await userInteractorPostgres.login({userLoginPersistence}, {email, password});
             // Send the response with the status and user data
             res.status(user.status).send(user);
         } catch (err) {
@@ -62,7 +62,7 @@ router.route('/user/register').post(
 
         try {
             // Use userInteractorPostgres to register the user
-            const user = await userInterfactorPostgres.register({userCreatePersistence}, {username, password, email});
+            const user = await userInteractorPostgres.register({userCreatePersistence}, {username, password, email});
             // Send the response with the status and user data
             res.status(user.status).send(user)
         } catch (err) {
@@ -90,7 +90,7 @@ router.route('/user/forgot-password').post(
         
         try {
             // 
-            const user = await userInterfactorPostgres.forgotPassword({userForgetPasswordPersistence}, {email});
+            const user = await userInteractorPostgres.forgotPassword({userForgetPasswordPersistence}, {email});
             // Send the response with the status and user data
             res.status(user.status).send(user);
         } catch (err) {
@@ -120,7 +120,7 @@ router.route('/user/verifyCode').post(
         
         try {
             // 
-            const user = await userInterfactorPostgres.verifyCode({userForgetPasswordPersistence}, {email, verificationcode});
+            const user = await userInteractorPostgres.verifyCode({userForgetPasswordPersistence}, {email, verificationcode});
             // Send the response with the status and user data
             res.status(user.status).send(user);
         } catch (err) {
@@ -152,7 +152,7 @@ router.route('/user/reset-password').post(
         
         try {
             // 
-            const user = await userInterfactorPostgres.resetPassword({userForgetPasswordPersistence}, {token, password});
+            const user = await userInteractorPostgres.resetPassword({userForgetPasswordPersistence}, {token, password});
             // Send the response with the status and user data
             res.status(user.status).send(user);
         } catch (err) {
@@ -188,7 +188,7 @@ router.route('/user/edit').put(
 
         try {
             // Attempt to edit user details using userInteractorPostgres
-            const user = await userInterfactorPostgres.edit({userEditPersistence}, {token, username, email, phonenumber, profilephoto, phonetoken});
+            const user = await userInteractorPostgres.edit({userEditPersistence}, {token, username, email, phonenumber, profilephoto, phonetoken});
             // Send the response with the status and user data
             res.status(user.status).send(user);
         } catch (err) {
@@ -217,7 +217,7 @@ router.route('/user/delete').delete(
         
         try {
             // Attempt to delete the user using userInteractorPostgres
-            const user = await userInterfactorPostgres.delete({userDeletePersistence}, {token});
+            const user = await userInteractorPostgres.delete({userDeletePersistence}, {token});
             // Send the response with the status and user data
             res.status(user.status).send(user)
         } catch (err) {
