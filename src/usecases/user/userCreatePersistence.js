@@ -10,10 +10,7 @@ exports.userCreatePersistence = async (user) => {
         const userRecord = await User.findOne({ where: { email: user.email }});
 
         if (userRecord) {
-            return ({
-                status: 400,
-                message: "User already exists"
-            });
+            return { status: 400, message: "User already exists" };
         }
 
         // if the user does not exist, create it
@@ -23,26 +20,17 @@ exports.userCreatePersistence = async (user) => {
             password: passwordHash
         });
 
-        return ({
-            status: 201,
-            message: "User registered successfully"
-        })
+        return { status: 201,message: "User registered successfully" };
     } catch (err) {
         // if the error is a duplicate key error, return a 400 error
         // This is to prevent users from registering multiple times
         if (err.code === 11000) {
-            return ({
-                status: 400,
-                message: "User already exists"
-            });
+            return { status: 400, message: "User already exists" };
         }
         // if the error is not a duplicate key error, return a 500 error
         // This is to prevent users from registering multiple times
         else {
-            return ({
-                status: 500,
-                message: err.message
-            });
+            return {status: 500, message: err.message };
         }
     }
 }

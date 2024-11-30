@@ -41,7 +41,6 @@ router.route('/user/login').post(
     }
 )
 
-
 /**
  * @api {post} /user/register Register
  * @apiName Register

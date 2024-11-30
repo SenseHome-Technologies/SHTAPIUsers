@@ -16,21 +16,16 @@ exports.forgotPassword = async (user) => {
 
         // Validate if user exists
         if (!userRecord) {
-            return { 
-                status: 404, 
-                message: 'User not found' 
-            };
+            return { status: 404, message: 'User not found' };
         }
 
         // Generate the verification code
         const verificationCode = generateVerificationCode();
 
-        await userRecord.update(
-            {
-                verificationcode: verificationCode,
-                codeexpiry: Date.now() + 300000
-            }
-        );
+        await userRecord.update({
+            verificationcode: verificationCode,
+            codeexpiry: Date.now() + 300000
+        });
 
         // Email content
         const message = {
@@ -39,8 +34,6 @@ exports.forgotPassword = async (user) => {
             subject: 'Verification Code',
             text: `Your verification code is: ${verificationCode}. This code is valid for 5 minutes.`,
         };
-
-        console.log(message);
 
         // Send the email
         await transporter.sendMail(message);
@@ -51,10 +44,7 @@ exports.forgotPassword = async (user) => {
         };
     } catch (error) {
         // Handle any errors during login process
-        return {
-            status: 500,
-            message: error.message
-        };
+        return { status: 500,message: error.message };
     }
 
 }
@@ -71,33 +61,23 @@ exports.verifyCode = async (user) => {
 
         // Validate if user exists
         if (!userRecord) {
-            return { 
-                status: 404, 
-                message: 'Invalid verification code' 
-            };
+            return { status: 404, message: 'Invalid verification code' };
         }
 
         // Clear the code after successful verification
         await userRecord.update({
             verificationcode: null,
             codeexpiry: null
-        })
+        });
 
         // Generate a JWT token for the user
         const token = jwt.sign({id: userRecord.id}, process.env.JWT_SECRET, {expiresIn: 300});
 
-        return { 
-            status: 200, 
-            message: 'Verification successful',
-            token: token
-        };
+        return { status: 200, message: 'Verification successful', token: token };
 
     } catch (error) {
         // Handle any errors during login process
-        return {
-            status: 500,
-            message: error.message
-        };
+        return { status: 500, message: error.message };
     }
 }
 
@@ -110,20 +90,15 @@ exports.resetPassword = async (token, user) => {
         const userRecord = await User.findByPk(decoded.id); 
 
         if (!userRecord) {
-            return {
-                status: 400,
-                message: 'User not found'
-            }
+            return { status: 400, message: 'User not found' }
         }
 
         const passwordHash = await bcrypt.hash(user.password, 10); // 10 salt rounds
 
         // Update user details in the database
-        await userRecord.update(
-            {
-                password: passwordHash, 
-            }
-        );
+        await userRecord.update({ 
+            password: passwordHash 
+        });
 
          // Respond with success message
         return {
@@ -132,9 +107,6 @@ exports.resetPassword = async (token, user) => {
         };
     } catch (error) {
         // Handle any errors during login process
-        return {
-            status: 500,
-            message: error.message
-        };
+        return { status: 500, message: error.message };
     }
 }

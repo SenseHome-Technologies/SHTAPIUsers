@@ -10,34 +10,23 @@ exports.userEditPersistence = async (token, user) => {
         const userRecord = await User.findByPk(decoded.id);
 
         if (!userRecord) {
-            return ({
-                status: 400,
-                message: 'User not found'
-            });
+            return { status: 400, message: 'User not found' };
         }
 
         // Update user details in the database
-        await userRecord.update(
-            {
-                username: user.username, 
-                email: user.email, 
-                phonenumber: user.phonenumber, 
-                profilephoto: user.profilephoto, 
-                phonetoken: user.phonetoken
-            }
-        );
+        await userRecord.update({
+            username: user.username, 
+            email: user.email, 
+            phonenumber: user.phonenumber, 
+            profilephoto: user.profilephoto, 
+            phonetoken: user.phonetoken
+        });
 
          // Respond with success message
-        return ({
-            status: 200,
-            message: "User updated successfully"
-        });
+        return { status: 200, message: "User updated successfully" };
 
     } catch (error) {
         // Handle any errors during login process
-        return ({
-            status: 500,
-            message: error.message
-        });
+        return { status: 500, message: error.message };
     }
 }

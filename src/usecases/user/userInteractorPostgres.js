@@ -9,10 +9,7 @@ exports.login = async ({userLoginPersistence}, {email, password}) => {
 
         // Validate the user
         if (!email || !password) {
-            return {
-                status: 400,
-                message: 'Email and password are required'
-            };
+            return { status: 400, message: 'Email and password are required' };
         }
 
         // Attempt to persist user login and retrieve result
@@ -35,10 +32,7 @@ exports.register = async ({userCreatePersistence}, {username, email, password}) 
 
         // Validate the user
         if (!username || !email || !password) {
-            return {
-                status: 400,
-                message: 'Username, email, and password are required'
-            };
+            return { status: 400, message: 'Username, email, and password are required' };
         }
 
         // Attempt to persist the user registration
@@ -61,10 +55,7 @@ exports.forgotPassword = async ({userForgetPasswordPersistence}, {email}) => {
 
         // Validate the user        
         if (!email) {
-            return {
-                status: 400,
-                message: 'Email is required'
-            };
+            return { status: 400, message: 'Email is required' };
         }
 
         // Attempt to persist the user forgot password
@@ -85,10 +76,7 @@ exports.verifyCode = async ({userForgetPasswordPersistence}, {email, verificatio
 
         // Validate the user        
         if (!email || !verificationcode) {
-            return {
-                status: 400,
-                message: 'Email and verification code are required'
-            };
+            return { status: 400, message: 'Email and verification code are required' };
         }
 
         // Attempt to persist the user forgot password
@@ -109,17 +97,11 @@ exports.resetPassword = async ({userForgetPasswordPersistence}, {token, password
 
         // Validate the user        
         if (!password) {
-            return {
-                status: 400,
-                message: 'Password is required'
-            };
+            return { status: 400, message: 'Password is required' };
         }
 
         if (password.length < 8) {
-            return {
-                status: 400,
-                message: 'Password must be at least 8 characters long'
-            };
+            return { status: 400, message: 'Password must be at least 8 characters long' };
         }
 
         // Attempt to persist the user forgot password
@@ -140,10 +122,7 @@ exports.edit = async ({userEditPersistence}, {token, username, email, phonenumbe
 
         // Validate all required fields of the user
         if (!username || !email) {
-            return {
-                status: 400,
-                message: 'All fields are required'
-            };
+            return { status: 400, message: 'All fields are required' };
         }
 
         // Attempt to edit the user using userEditPersistence

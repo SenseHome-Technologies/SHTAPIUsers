@@ -10,26 +10,16 @@ exports.userDeletePersistence = async (token, user) => {
         const userRecord = await User.findByPk(decoded.id);
 
         if (!userRecord) {
-            return ({
-                status: 400,
-                message: 'User not found'
-            });
+            return { status: 400, message: 'User not found' };
         }
 
         // Delete user details in the database
         await user.destroy();
 
          // Respond with success message
-        return ({
-            status: 204,
-            message: "User deleted successfully"
-        });
-
+        return { status: 204, message: "User deleted successfully" };
     } catch (error) {
         // Handle any errors during login process
-        return ({
-            status: 500,
-            message: error.message
-        });
+        return { status: 500, message: error.message };
     }
 }
