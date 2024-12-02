@@ -1,0 +1,7 @@
+{
+    "name": "SenseHome-Technologies API Users",
+    "version": "1.0.0",
+    "description": "The purpose of the API developed is to manage the users of a system, including registration, authentication and information management functions.",
+    "title": "SenseHome-Technologies API Users",
+    "url": "http://192.168.1.11:3000"
+}  
