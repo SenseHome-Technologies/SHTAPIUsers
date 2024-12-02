@@ -52,7 +52,6 @@ router.route('/user/login').post(
  * @apiParam {String} password Password of the user
  * @apiParam {String} email Email of the user
  * @apiSuccess {String} message User registered successfully
- * @apiSuccess {String} token JWT token for the user
  * @apiError {String} message Username, email, or password missing
  * @apiError {String} message Invalid email or password
  * @apiError {String} message User already exists
