@@ -9,7 +9,7 @@ const router = require('express').Router();
 
 
 /**
- * @api {post} /user/login User Login
+ * @api {post} /api/user/login User Login
  * @apiName UserLogin
  * @apiGroup User
  * @apiParam {String} email Email of the user
@@ -45,7 +45,7 @@ router.route('/user/login').post(
 )
 
 /**
- * @api {post} /user/register Register User
+ * @api {post} /api/user/register Register User
  * @apiName Register User
  * @apiGroup User
  * @apiParam {String} username Username of the user
@@ -80,7 +80,7 @@ router.route('/user/register').post(
 )
 
 /**
- * @api {post} /user/forgot-password Forgot Password
+ * @api {post} /api/user/forgot-password Forgot Password
  * @apiName Forgot Password
  * @apiGroup User
  * @apiParam {String} email Email of the user
@@ -110,7 +110,7 @@ router.route('/user/forgot-password').post(
 )
 
 /**
- * @api {post} /user/verifyCode Verify Code
+ * @api {post} /api/user/verifyCode Verify Code
  * @apiName Verify Code
  * @apiGroup User
  * @apiParam {String} email Email of the user
@@ -145,7 +145,7 @@ router.route('/user/verifyCode').post(
 )
 
 /**
- * @api {post} /user/reset-password Reset Password
+ * @api {post} /api/user/reset-password Reset Password
  * @apiName ResetPassword
  * @apiGroup User
  * @apiHeader {String} token JWT token for the user
@@ -180,7 +180,7 @@ router.route('/user/reset-password').post(
 )
 
 /**
- * @api {put} /user/edit Edit User
+ * @api {put} /api/user/edit Edit User
  * @apiName Edit User
  * @apiGroup User
  * @apiHeader {String} token JWT token for the user
@@ -219,7 +219,7 @@ router.route('/user/edit').put(
 
 
 /**
- * @api {delete} /user/delete Delete User
+ * @api {delete} /api/user/delete Delete User
  * @apiName DeleteUser
  * @apiGroup User
  * @apiHeader {String} token JWT token for the user
