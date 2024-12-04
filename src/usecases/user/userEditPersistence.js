@@ -28,7 +28,7 @@ exports.userEditPersistence = async (token, user) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         // Verify if the provided user ID matches the user record's ID
-        if (user.id !== userRecord.id) {
+        if (user.id !== decoded.id) {
             return { status: 400, message: 'Invalid user ID' };
         }
 

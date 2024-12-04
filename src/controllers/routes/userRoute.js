@@ -242,7 +242,6 @@ router.route('/user/delete').delete(
         try {
             // Attempt to delete the user using userInteractorPostgres
             const user = await userInteractorPostgres.delete({userDeletePersistence}, {token, id});
-            res.status(user.status).send(user);
             // Send the response with the status and user data
             res.status(user.status).send(user)
         } catch (err) {
