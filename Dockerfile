@@ -12,6 +12,7 @@ RUN npm ci --only=production
 
 # Copy the application source code and environment file
 COPY src ./src/
+COPY public ./public/
 COPY .env .
 
 # Runtime stage 
